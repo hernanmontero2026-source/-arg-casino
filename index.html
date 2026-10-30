@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+<meta name="description" content="ARGCASINO: club de minijuegos con puntos virtuales.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>ARGCASINO — Prototipo</title>
+<style>
+:root{--bg:#090909;--panel:#151515;--panel2:#1d1a12;--gold:#d7ad55;--gold2:#f3d58a;--muted:#aaa18e;--line:#39301d;--green:#8dd7a2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -15%,#3b2b0d 0,#111 35%,#080808 75%);color:#f7f0df;font-family:Inter,system-ui,Arial,sans-serif;min-height:100vh}
+.app{max-width:480px;margin:auto;min-height:100vh;padding:18px 16px 30px}
+header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:5px 0 17px}
+.brand{font-weight:900;letter-spacing:2px;font-size:22px;color:var(--gold2)}.brand span{color:#fff}
+.pill{border:1px solid var(--line);border-radius:30px;padding:8px 12px;color:var(--gold2);font-size:12px}
+.hero{padding:24px 0 18px}.eyebrow{color:var(--gold);font-size:11px;letter-spacing:2px;font-weight:800}.hero h1{font-size:29px;line-height:1.12;margin:8px 0}.hero p{color:var(--muted);font-size:13px;line-height:1.5;margin:8px 0 0}
+.balance{background:linear-gradient(120deg,#2c210e,#17130c);border:1px solid #665027;border-radius:18px;padding:17px;display:flex;align-items:center;justify-content:space-between;margin:14px 0 20px}
+.balance small{display:block;color:var(--muted);font-size:11px;letter-spacing:1px}.points{font-size:27px;font-weight:900;color:var(--gold2);margin-top:4px}.coin{font-size:33px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:20px 0 10px}.section-title h2{font-size:15px;margin:0}.section-title small{color:var(--muted);font-size:11px}
+.games{display:grid;grid-template-columns:1fr 1fr;gap:10px}.game{background:linear-gradient(145deg,#201b11,#131313);border:1px solid var(--line);border-radius:16px;padding:15px;min-height:145px}.game .emoji{font-size:29px}.game h3{font-size:14px;margin:10px 0 4px}.game p{font-size:11px;color:var(--muted);line-height:1.4;margin:0 0 12px}
+button{border:0;border-radius:12px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#17120a;font-weight:850;padding:11px 14px;cursor:pointer;font-size:12px}button:active{transform:scale(.98)}button.secondary{background:#252117;color:var(--gold2);border:1px solid var(--line)}
+.panel{display:none;background:#151515;border:1px solid var(--line);border-radius:17px;padding:16px;margin-top:14px}.panel.active{display:block}.panel h3{margin:0 0 8px;font-size:16px}.panel p{color:var(--muted);font-size:12px;line-height:1.5}
+.gridgame{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.tile{height:58px;border-radius:11px;background:#2b2416;border:1px solid #5a4722;color:var(--gold2);font-size:22px;display:grid;place-items:center;cursor:pointer}.tile.done{background:#18251b;border-color:#42694b}
+.sequence{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.sequence button{min-width:55px;font-size:18px;padding:14px}
+.notice{font-size:10px;color:#8e8778;text-align:center;margin-top:22px;line-height:1.5;border-top:1px solid #29251d;padding-top:14px}
+.nav{display:flex;gap:8px;margin-top:18px}.nav button{flex:1}
+#feedback{min-height:18px;color:var(--green);font-size:12px;margin:8px 0}
+@media(min-width:700px){.app{margin:30px auto;min-height:0;border:1px solid #322817;border-radius:28px;padding:24px 22px;background:#0c0c0c;box-shadow:0 25px 80px #000}}
+</style>
+</head>
+<body>
+<main class="app">
+<header><div class="brand">ARG<span>CASINO</span></div><div class="pill">✦ CLUB ARCADE</div></header>
+<section class="hero"><div class="eyebrow">ENTRETENIMIENTO · NIVEL 01</div><h1>Tu próxima partida<br>empieza aquí.</h1><p>Un club de minijuegos para sumar puntos, superar desafíos y divertirte.</p></section>
+<section class="balance"><div><small>TUS PUNTOS VIRTUALES</small><div class="points" id="score">1.250 pts</div></div><div class="coin">🪙</div></section>
+<div class="section-title"><h2>Juegos destacados</h2><small>Juega por habilidad</small></div>
+<section class="games">
+<article class="game"><div class="emoji">🧠</div><h3>Memoria dorada</h3><p>Encuentra las parejas y gana puntos.</p><button onclick="openGame('memory')">Jugar</button></article>
+<article class="game"><div class="emoji">⚡</div><h3>Reto relámpago</h3><p>Repite la secuencia de colores.</p><button onclick="openGame('sequence')">Jugar</button></article>
+<article class="game"><div class="emoji">🎯</div><h3>Objetivo preciso</h3><p>Elige el número que completa el reto.</p><button onclick="openGame('target')">Jugar</button></article>
+<article class="game"><div class="emoji">🏆</div><h3>Mis logros</h3><p>Consulta tus puntos y progreso.</p><button class="secondary" onclick="showAchievements()">Ver logros</button></article>
+</section>
+<section class="panel" id="memory"><h3>🧠 Memoria dorada</h3><p>Encuentra las cuatro parejas. Cada pareja suma 25 puntos.</p><div class="gridgame" id="tiles"></div><div id="memorymsg" class="notice"></div><button class="secondary" onclick="newMemory()">Reiniciar</button></section>
+<section class="panel" id="sequence"><h3>⚡ Reto relámpago</h3><p>Observa la secuencia y repítela en el mismo orden. Completarla suma 50 puntos.</p><div id="seqdisplay" class="sequence"></div><div id="seqbuttons" class="sequence"></div><div id="seqmsg"></div><button class="secondary" onclick="newSequence()">Nueva secuencia</button></section>
+<section class="panel" id="target"><h3>🎯 Objetivo preciso</h3><p>Resuelve el desafío: ¿qué número falta para llegar a 20?</p><div class="sequence"><button onclick="answerTarget(7)">7</button><button onclick="answerTarget(8)">8</button><button onclick="answerTarget(9)">9</button><button onclick="answerTarget(10)">10</button></div><div id="targetmsg"></div></section>
+<section class="panel" id="achievements"><h3>🏆 Tu progreso</h3><p id="progress"></p><button class="secondary" onclick="closePanels()">Volver a juegos</button></section>
+<div class="notice">Prototipo de entretenimiento con puntos ficticios. Sin apuestas, depósitos, premios de dinero ni retiros. Los puntos no tienen valor monetario.</div>
+</main>
+<script>
+let score=Number(localStorage.getItem('argc_score') || 1250),matched=0,first=null,lock=false,seq=[],step=0;
+function fmt(){document.getElementById('score').textContent=score.toLocaleString('es-AR')+' pts';localStorage.setItem('argc_score',String(score))}
+function award(n){score+=n;fmt()}
+function closePanels(){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'))}
+function openGame(id){closePanels();document.getElementById(id).classList.add('active');if(id==='memory')newMemory();if(id==='sequence')newSequence()}
+function showAchievements(){closePanels();document.getElementById('achievements').classList.add('active');document.getElementById('progress').textContent='Puntos acumulados: '+score.toLocaleString('es-AR')+'. Sigue completando retos para mejorar tu marca.'}
+function newMemory(){let a=['◆','●','★','✦','◆','●','★','✦'].sort(()=>Math.random()-.5);matched=0;first=null;lock=false;let el=document.getElementById('tiles');el.innerHTML='';document.getElementById('memorymsg').textContent='';a.forEach((v,i)=>{let b=document.createElement('button');b.className='tile';b.textContent='?';b.dataset.v=v;b.dataset.i=i;b.onclick=()=>flip(b);el.appendChild(b)})}
+function flip(b){if(lock||b.classList.contains('done')||b.textContent!=='?')return;b.textContent=b.dataset.v;if(!first){first=b;return}if(first.dataset.v===b.dataset.v){first.classList.add('done');b.classList.add('done');matched++;award(25);first=null;if(matched===4)document.getElementById('memorymsg').textContent='¡Completaste el tablero! +100 puntos.'}else{lock=true;let f=first;setTimeout(()=>{f.textContent='?';b.textContent='?';first=null;lock=false},650)}}
+function newSequence(){seq=Array.from({length:4},()=>Math.floor(Math.random()*4));step=0;document.getElementById('seqdisplay').innerHTML=seq.map(x=>'<span>'+['🔴','🔵','🟡','🟢'][x]+'</span>').join('');document.getElementById('seqbuttons').innerHTML='';['🔴','🔵','🟡','🟢'].forEach((c,i)=>{let b=document.createElement('button');b.textContent=c;b.onclick=()=>pickSeq(i);document.getElementById('seqbuttons').appendChild(b)});document.getElementById('seqmsg').textContent='';}
+function pickSeq(i){if(step>=seq.length)return;if(seq[step]!==i){document.getElementById('seqmsg').textContent='¡Inténtalo otra vez! Pulsa “Nueva secuencia”.';step=seq.length;return}step++;if(step===seq.length){award(50);document.getElementById('seqmsg').textContent='¡Secuencia perfecta! +50 puntos.'}}
+function answerTarget(n){let el=document.getElementById('targetmsg');if(n===8){award(20);el.textContent='¡Correcto! +20 puntos.'}else el.textContent='Casi. Prueba otra vez: 20 − 12.'}
+fmt();
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
+}
+</script>
+</body></html>
