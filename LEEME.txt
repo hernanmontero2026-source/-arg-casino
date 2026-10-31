@@ -1,0 +1,22 @@
+ARGCASINO — paquete PWA instalable
+
+CONTENIDO
+- index.html: aplicación.
+- manifest.webmanifest: configuración de instalación.
+- service-worker.js: caché para uso sin conexión.
+- icons/: iconos de la aplicación.
+
+IMPORTANTE
+Este paquete es una PWA, no un APK ni un archivo IPA.
+Para instalarla en Android y iPhone, primero hay que publicarla en un alojamiento HTTPS.
+
+ANDROID
+1. Abre la dirección HTTPS publicada con Chrome.
+2. Toca el menú ⋮ y elige "Instalar aplicación" o "Añadir a pantalla de inicio".
+
+IPHONE
+1. Abre la dirección HTTPS publicada con Safari.
+2. Toca Compartir y luego "Añadir a pantalla de inicio".
+
+La primera visita debe hacerse con conexión. Luego el service worker guarda los archivos para uso sin conexión.
+Los puntos son ficticios y no se pueden comprar, vender, retirar ni canjear.
